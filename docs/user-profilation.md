@@ -70,11 +70,12 @@ A creation of a new profile after the reset will create a profile with no user d
 
 ## Link External Data to a NearIT Profile
 
-You might want to keep a reference between the data hosted on you DBs and NearIT data.
-You can do it by setting the user ID explicitly. 
+You might want to sync NearIt profile related data with an external CRM system. To do so, you can store the NearIT profileId into your system, when the user first logs in.
+Then, on subsequent logins (on the same or on other devices) you can fetch the previously stored NearIT profileId for that user from your system and set it locally with:
 ```java
 NearItUserProfile.setProfileId(context, profileId);
 ```
 You can then set the relevant user-data to this profile with the aforementioned methods.
 
-This way, you will have a reference between NearIT data and your others data sources. Please keep in mind that you will be responsible of storing our profile identifier in your system.
+This way, you will have a reference between NearIT data and your others data sources. 
+Please keep in mind that you will be responsible of storing our profile identifier in your system.
