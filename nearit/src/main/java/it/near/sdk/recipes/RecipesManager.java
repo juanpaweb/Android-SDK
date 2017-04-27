@@ -97,11 +97,6 @@ public class RecipesManager {
         return instance;
     }
 
-    /**
-     * Set up Morpheus parser. Morpheus parses jsonApi encoded resources
-     * https://github.com/xamoom/Morpheus
-     * We didn't actually use this library due to its minSdkVersion. We instead imported its code and adapted it.
-     */
     private void setUpMorpheusParser() {
         morpheus = new Morpheus();
         // register your resources
