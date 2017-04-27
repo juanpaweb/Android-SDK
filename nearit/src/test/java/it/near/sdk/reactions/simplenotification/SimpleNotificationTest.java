@@ -1,20 +1,20 @@
-package it.near.sdk.reaction.simplenotification;
+package it.near.sdk.reactions.simplenotification;
 
 import android.os.Parcel;
-import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
-import it.near.sdk.reactions.simplenotification.SimpleNotification;
+import it.near.sdk.BuildConfig;
 
-import static junit.framework.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
 
-/**
- * Created by cattaneostefano on 28/02/2017.
- */
-
-@RunWith(AndroidJUnit4.class)
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class SimpleNotificationTest {
 
     @Test
@@ -24,8 +24,8 @@ public class SimpleNotificationTest {
         simpleNotification.writeToParcel(parcel, 0);
         parcel.setDataPosition(0);
         SimpleNotification actual = SimpleNotification.CREATOR.createFromParcel(parcel);
-        assertEquals(simpleNotification.getNotificationMessage(), actual.getNotificationMessage());
-        assertEquals(simpleNotification.getNotificationTitle(), actual.getNotificationTitle());
+        assertThat(actual.getNotificationMessage(), is(simpleNotification.getNotificationMessage()));
+        assertThat(actual.getNotificationTitle(), is(simpleNotification.getNotificationTitle()));
 
 
         SimpleNotification simpleNotificationNoTitle = new SimpleNotification("message", null);
@@ -33,7 +33,7 @@ public class SimpleNotificationTest {
         simpleNotificationNoTitle.writeToParcel(parcel, 0);
         parcel.setDataPosition(0);
         actual = SimpleNotification.CREATOR.createFromParcel(parcel);
-        assertEquals(simpleNotification.getNotificationMessage(), actual.getNotificationMessage());
-        assertNull(actual.getNotificationTitle());
+        assertThat(actual.getNotificationMessage(), is(simpleNotification.getNotificationMessage()));
+        assertThat(actual.getNotificationTitle(), is(nullValue()));
     }
 }

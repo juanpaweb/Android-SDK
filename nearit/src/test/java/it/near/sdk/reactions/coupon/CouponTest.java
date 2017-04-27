@@ -1,26 +1,24 @@
-package it.near.sdk.reaction.coupon;
+package it.near.sdk.reactions.coupon;
 
 import android.os.Parcel;
-import android.support.test.runner.AndroidJUnit4;
 
 import com.google.common.collect.Lists;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
+import it.near.sdk.BuildConfig;
 import it.near.sdk.reactions.content.ImageSet;
-import it.near.sdk.reactions.coupon.Claim;
-import it.near.sdk.reactions.coupon.Coupon;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
-/**
- * Created by cattaneostefano on 28/02/2017.
- */
-
-@RunWith(AndroidJUnit4.class)
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class CouponTest {
 
     @Test
@@ -40,15 +38,13 @@ public class CouponTest {
         parcel.setDataPosition(0);
         Coupon actual = Coupon.CREATOR.createFromParcel(parcel);
 
-        assertEquals(coupon.getId(), actual.getId());
-        assertEquals(coupon.getName(), actual.getName());
-        assertEquals(coupon.getDescription(), actual.getDescription());
-        assertEquals(coupon.getValue(), actual.getValue());
-        assertEquals(coupon.getExpires_at(), actual.getExpires_at());
-        assertEquals(coupon.getIcon_id(), actual.getIcon_id());
+        assertThat(actual.getId(), is(coupon.getId()));
+        assertThat(actual.getName(), is(coupon.getName()));
+        assertThat(actual.getDescription(), is(coupon.getDescription()));
+        assertThat(actual.getValue(), is(coupon.getValue()));
+        assertThat(actual.getExpires_at(), is(coupon.getExpires_at()));
+        assertThat(actual.getIcon_id(), is(coupon.getIcon_id()));
         assertThat(coupon.getClaims(), containsInAnyOrder(actual.getClaims().toArray()));
-        assertEquals(coupon.getIconSet(), actual.getIconSet());
-
+        assertThat(actual.getIconSet(), is(coupon.getIconSet()));
     }
-
 }
