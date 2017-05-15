@@ -29,6 +29,7 @@ public class CouponTest {
         coupon.setDescription("coupon_description");
         coupon.setValue("coupon_value");
         coupon.setExpires_at("expiring_soon");
+        coupon.setRedeemable_from("redeemable_from");
         coupon.setIcon_id("coupon_icon_id");
         coupon.setClaims(Lists.newArrayList(new Claim(), new Claim()));
         coupon.setIconSet(new ImageSet());

@@ -29,7 +29,7 @@ To receive foreground content (e.g. ranging recipes) set a proximity listener wi
 public void foregroundEvent(Parcelable content, Recipe recipe) {
     // handle the event
     // To extract the content and to have it automatically casted to the appropriate object type
-    // NearUtils.parseCoreContents(content, recipe, coreContentListener)
+    NearUtils.parseCoreContents(content, recipe, coreContentListener)
 }   
 ```
 
@@ -53,16 +53,17 @@ NearIT analytics on recipes are built from trackings describing the status of us
 
 Background recipes track themselves as notified. To track the tap event, use this method:
 ```java
-nearItManager.getRecipesManager().sendTracking(getApplicationContext(), recipeId, Recipe.ENGAGED_STATUS);
+nearItManager.getRecipesManager().sendTracking(recipeId, Recipe.ENGAGED_STATUS);
 ```
 You should be able to catch the event inside the activity that is started after interacting with the notification.
 
 Foreground recipes don't have automatic tracking. You need to track both the "Notified" and the "Engaged" statuses when it's the best appropriate for you scenario.
 ```java
-nearItManager.getRecipesManager().sendTracking(getApplicationContext(), recipe.getId(), Recipe.NOTIFIED_STATUS);
+nearItManager.getRecipesManager().sendTracking(recipe.getId(), Recipe.NOTIFIED_STATUS);
 // and
-nearItManager.getRecipesManager().sendTracking(getApplicationContext(), recipe.getId(), Recipe.ENGAGED_STATUS);
+nearItManager.getRecipesManager().sendTracking(recipe.getId(), Recipe.ENGAGED_STATUS);
 ```
+The recipe cooldown feature uses tracking calls to hook its functionality, so failing to properly track user interactions will result in the cooldown not being applied.
 
 ## Content Objects
 
@@ -96,11 +97,16 @@ nearItManager.sendEvent(new FeedbackEvent(...), responseHandler);
     - `getName()` returns the coupon name
     - `getDescription()` returns the coupon description
     - `getValue()` returns the value string
-    - `getExpires_at()` returns the expiring date (as a string)
+    - `getExpires_at()` returns the expiring date (as a string), might be null
+    - `getExpiresAtDate()` returns a the expiring Date object. Since coupon validity period is timezone related, consider showing the time of day.
+    - `getRedeemableFrom()` returns the validity start date (as a string), might be null
+    - `getRedeemableFromDate()` returns the validity start Date object. Since coupon validity period is timezone related, consider showing the time of day.
     - `getIconSet()` returns an *ImageSet* object containing the source links for the icon
     - `getSerial()` returns the serial code of the single coupon as a string
     - `getClaimedAt()` returns the claimed date (when the coupon was earned) of the coupon as a string
+    - `getClaimedAtDate()` returns the claimed Date object.
     - `getRedeemedAt()` returns the redeemed date (when the coupon was used) of the coupon as a string
+    - `getRedeemedAtDate()` returns the redeemed Date object.
     
 - `CustomJSON` with the following getters:
     - `getContent()` returns the json content as an *HashMap<String, Object>* (just like Gson)
