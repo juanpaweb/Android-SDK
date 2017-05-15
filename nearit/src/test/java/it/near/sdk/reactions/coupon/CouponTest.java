@@ -43,7 +43,8 @@ public class CouponTest {
         assertThat(actual.getName(), is(coupon.getName()));
         assertThat(actual.getDescription(), is(coupon.getDescription()));
         assertThat(actual.getValue(), is(coupon.getValue()));
-        assertThat(actual.getExpires_at(), is(coupon.getExpires_at()));
+        assertThat(actual.getExpiresAt(), is(coupon.getExpiresAt()));
+        assertThat(actual.getRedeemableFrom(), is(coupon.getRedeemableFrom()));
         assertThat(actual.getIcon_id(), is(coupon.getIcon_id()));
         assertThat(coupon.getClaims(), containsInAnyOrder(actual.getClaims().toArray()));
         assertThat(actual.getIconSet(), is(coupon.getIconSet()));
